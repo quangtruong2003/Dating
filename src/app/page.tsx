@@ -55,6 +55,116 @@ function useImageFallback(primarySrc: string, fallback: string) {
   return { src, handleError };
 }
 
+// ─── Emoji Grid Selector ──────────────────────────────────
+function EmojiGrid({
+  options,
+  selected,
+  onSelect,
+  onNext,
+}: {
+  options: { emoji: string; label: string }[];
+  selected: string;
+  onSelect: (v: string) => void;
+  onNext: () => void;
+}) {
+  const [customMode, setCustomMode] = useState(false);
+  const [customValue, setCustomValue] = useState("");
+
+  const handleCustomSubmit = () => {
+    if (customValue.trim()) {
+      onSelect(customValue.trim());
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center gap-5 px-8 pb-10 text-center">
+      <div className="grid grid-cols-3 gap-3 w-full">
+        {options.map((opt) => {
+          const isSelected = selected === opt.label;
+          return (
+            <button
+              key={opt.emoji}
+              onClick={() => {
+                setCustomMode(false);
+                onSelect(opt.label);
+              }}
+              className={`flex flex-col items-center gap-1.5 p-4 rounded-2xl border-2 transition-all hover:scale-105 active:scale-95 ${
+                isSelected && !customMode
+                  ? "border-pink-500 bg-pink-50 shadow-lg shadow-pink-200 scale-105"
+                  : "border-pink-100 bg-white hover:border-pink-300 hover:bg-pink-50"
+              }`}
+            >
+              <span className="text-4xl">{opt.emoji}</span>
+              <span className="text-xs font-medium text-gray-600 leading-tight">
+                {opt.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <button
+        onClick={() => setCustomMode(!customMode)}
+        className={`w-full py-2.5 px-4 rounded-xl border-2 text-sm font-medium transition-all ${
+          customMode
+            ? "border-pink-400 bg-pink-50 text-pink-600"
+            : "border-pink-100 bg-white text-pink-500 hover:border-pink-300 hover:bg-pink-50"
+        }`}
+      >
+        {customMode ? "✕ Đóng" : "✨ Tự chọn"}
+      </button>
+
+      {customMode && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          className="w-full"
+        >
+          <div className="bg-pink-50 border border-pink-200 rounded-2xl p-4 space-y-3">
+            <p className="text-sm font-medium text-gray-600">
+              Nhập ý kiến riêng của Trân yêu dấu:
+            </p>
+            <input
+              type="text"
+              value={customValue}
+              onChange={(e) => setCustomValue(e.target.value)}
+              placeholder="VD: Cơm tấm, phở..."
+              className="w-full px-4 py-2.5 rounded-xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none text-gray-700 text-sm bg-white transition-colors"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleCustomSubmit();
+              }}
+            />
+            <button
+              onClick={handleCustomSubmit}
+              disabled={!customValue.trim()}
+              className={`w-full py-2 rounded-xl font-semibold text-sm transition-all ${
+                customValue.trim()
+                  ? "bg-pink-500 hover:bg-pink-600 text-white"
+                  : "bg-gray-100 text-gray-300 cursor-not-allowed"
+              }`}
+            >
+              Chọn
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      <button
+        onClick={onNext}
+        disabled={selected === ""}
+        className={`w-full py-3 font-bold rounded-full text-lg transition-all ${
+          selected !== ""
+            ? "bg-pink-500 hover:bg-pink-600 text-white shadow-lg shadow-pink-300 hover:scale-105 active:scale-95"
+            : "bg-gray-100 text-gray-300 cursor-not-allowed"
+        }`}
+      >
+        Tiếp theo
+      </button>
+    </div>
+  );
+}
+
 // ─── Step 1: Will You Date Me? ────────────────────────────
 function Step1({ onYes }: { onYes: () => void }) {
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -98,7 +208,7 @@ function Step1({ onYes }: { onYes: () => void }) {
         <span className="text-[80px]">🧅</span>
       )}
       <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Bạn sẽ hẹn hò với tôi chứ?
+        Trân yêu dấu sẽ hẹn hò với tôi chứ?
       </h1>
       <div className="flex gap-4 mt-2">
         <button
@@ -142,9 +252,11 @@ function Step2({ onNext }: { onNext: () => void }) {
         <div className="text-6xl">🎉🎊</div>
       )}
       <div>
-        <h2 className="text-xl font-bold text-gray-800">Bạn thực sự đã nói có</h2>
+        <h2 className="text-xl font-bold text-gray-800">
+          Trân yêu dấu thực sự đã nói có
+        </h2>
         <p className="text-gray-500 mt-2 text-sm">
-          Tôi đã sẵn sàng. Để bạn nói không đã không kịp nữa rồi!
+          Tôi đã sẵn sàng. Để Trân yêu dấu nói không đã không kịp nữa rồi!
         </p>
       </div>
       <button
@@ -176,10 +288,10 @@ function Step3({
   return (
     <div className="flex flex-col items-center gap-6 px-8 pb-10 text-center">
       <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Khi nào bạn rảnh?
+        Khi nào Trân yêu dấu rảnh?
       </h2>
       <p className="text-gray-500 text-sm -mt-2">
-        Chọn ngày và giờ bạn muốn đi hẹn nhé 💘
+        Chọn ngày và giờ Trân yêu dấu muốn đi hẹn nhé 💘
       </p>
       <div className="flex flex-col gap-4 w-full">
         <div className="text-left">
@@ -231,43 +343,19 @@ function Step4({
   onNext: () => void;
 }) {
   return (
-    <div className="flex flex-col items-center gap-5 px-8 pb-10 text-center">
-      <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Chúng ta ăn gì nào?
-      </h2>
-      <div className="grid grid-cols-3 gap-3 w-full">
-        {FOOD_OPTIONS.map((opt) => {
-          const isSelected = selected === opt.label;
-          return (
-            <button
-              key={opt.emoji}
-              onClick={() => onSelect(opt.label)}
-              className={`flex flex-col items-center gap-1.5 p-4 rounded-2xl border-2 transition-all hover:scale-105 active:scale-95 ${
-                isSelected
-                  ? "border-pink-500 bg-pink-50 shadow-lg shadow-pink-200 scale-105"
-                  : "border-pink-100 bg-white hover:border-pink-300 hover:bg-pink-50"
-              }`}
-            >
-              <span className="text-4xl">{opt.emoji}</span>
-              <span className="text-xs font-medium text-gray-600 leading-tight">
-                {opt.label}
-              </span>
-            </button>
-          );
-        })}
+    <>
+      <div className="px-8 pt-2 pb-0 text-center">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
+          Trân yêu dấu muốn ăn gì nào?
+        </h2>
       </div>
-      <button
-        onClick={onNext}
-        disabled={selected === ""}
-        className={`w-full py-3 font-bold rounded-full text-lg transition-all ${
-          selected !== ""
-            ? "bg-pink-500 hover:bg-pink-600 text-white shadow-lg shadow-pink-300 hover:scale-105 active:scale-95"
-            : "bg-gray-100 text-gray-300 cursor-not-allowed"
-        }`}
-      >
-        Tiếp theo
-      </button>
-    </div>
+      <EmojiGrid
+        options={FOOD_OPTIONS}
+        selected={selected}
+        onSelect={onSelect}
+        onNext={onNext}
+      />
+    </>
   );
 }
 
@@ -282,43 +370,19 @@ function Step5({
   onNext: () => void;
 }) {
   return (
-    <div className="flex flex-col items-center gap-5 px-8 pb-10 text-center">
-      <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Sự rung cảm của bạn là gì?
-      </h2>
-      <div className="grid grid-cols-3 gap-3 w-full">
-        {ACTIVITY_OPTIONS.map((opt) => {
-          const isSelected = selected === opt.label;
-          return (
-            <button
-              key={opt.emoji}
-              onClick={() => onSelect(opt.label)}
-              className={`flex flex-col items-center gap-1.5 p-4 rounded-2xl border-2 transition-all hover:scale-105 active:scale-95 ${
-                isSelected
-                  ? "border-pink-500 bg-pink-50 shadow-lg shadow-pink-200 scale-105"
-                  : "border-pink-100 bg-white hover:border-pink-300 hover:bg-pink-50"
-              }`}
-            >
-              <span className="text-4xl">{opt.emoji}</span>
-              <span className="text-xs font-medium text-gray-600 leading-tight">
-                {opt.label}
-              </span>
-            </button>
-          );
-        })}
+    <>
+      <div className="px-8 pt-2 pb-0 text-center">
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
+          Sự rung cảm của Trân yêu dấu là gì?
+        </h2>
       </div>
-      <button
-        onClick={onNext}
-        disabled={selected === ""}
-        className={`w-full py-3 font-bold rounded-full text-lg transition-all ${
-          selected !== ""
-            ? "bg-pink-500 hover:bg-pink-600 text-white shadow-lg shadow-pink-300 hover:scale-105 active:scale-95"
-            : "bg-gray-100 text-gray-300 cursor-not-allowed"
-        }`}
-      >
-        Tiếp theo
-      </button>
-    </div>
+      <EmojiGrid
+        options={ACTIVITY_OPTIONS}
+        selected={selected}
+        onSelect={onSelect}
+        onNext={onNext}
+      />
+    </>
   );
 }
 
@@ -349,6 +413,8 @@ function Step6({
 
   const foodObj = FOOD_OPTIONS.find((f) => f.label === state.food);
   const activityObj = ACTIVITY_OPTIONS.find((a) => a.label === state.activity);
+  const isCustomFood = !FOOD_OPTIONS.some((f) => f.label === state.food);
+  const isCustomActivity = !ACTIVITY_OPTIONS.some((a) => a.label === state.activity);
 
   return (
     <div className="flex flex-col items-center gap-5 px-8 pb-10 text-center">
@@ -368,7 +434,7 @@ function Step6({
       <div>
         <p className="text-xl font-bold text-gray-800">I got you girl.</p>
         <p className="text-pink-500 font-semibold mt-1">
-          Hãy sẵn sàng, tôi sẽ đến đón bạn!
+          Hãy sẵn sàng, tôi sẽ đến đón Trân yêu dấu!
         </p>
       </div>
 
@@ -387,11 +453,17 @@ function Step6({
           <span className="text-lg">{foodObj?.emoji || "🍽️"}</span>
           <span className="font-medium">Ăn:</span>
           <span>{state.food || "—"}</span>
+          {isCustomFood && (
+            <span className="text-xs text-pink-400 ml-1">(tự chọn)</span>
+          )}
         </div>
         <div className="flex items-center gap-2 text-sm text-gray-700">
           <span className="text-lg">{activityObj?.emoji || "🎯"}</span>
           <span className="font-medium">Hoạt động:</span>
           <span>{state.activity || "—"}</span>
+          {isCustomActivity && (
+            <span className="text-xs text-pink-400 ml-1">(tự chọn)</span>
+          )}
         </div>
       </div>
 

@@ -10,7 +10,7 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title: "Lời Mời Hẹn 💌",
-  description: "Bạn sẽ hẹn hò với tôi chứ?",
+  description: "Trân yêu dấu sẽ hẹn hò với tôi chứ?",
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>",
   },

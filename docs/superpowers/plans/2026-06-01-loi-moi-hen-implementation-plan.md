@@ -217,7 +217,7 @@ const quicksand = Quicksand({
 
 export const metadata: Metadata = {
   title: "Lời Mời Hẹn 💌",
-  description: "Bạn sẽ hẹn hò với tôi chứ?",
+  description: "Trân yêu dấu sẽ hẹn hò với tôi chứ?",
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💌</text></svg>",
   },
@@ -645,7 +645,7 @@ function Step1({
         />
       </div>
       <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Bạn sẽ hẹn hò với tôi chứ?
+        Trân yêu dấu sẽ hẹn hò với tôi chứ?
       </h1>
       <div className="flex gap-4 mt-2">
         <button
@@ -685,10 +685,10 @@ function Step2({ onNext }: { onNext: () => void }) {
       </div>
       <div>
         <h2 className="text-xl font-bold text-gray-800">
-          Bạn thực sự đã nói có
+          Trân yêu dấu thực sự đã nói có
         </h2>
         <p className="text-gray-500 mt-2 text-sm">
-          Tôi đã sẵn sàng. Để bạn nói không đã không kịp nữa rồi!
+          Tôi đã sẵn sàng. Để Trân yêu dấu nói không đã không kịp nữa rồi!
         </p>
       </div>
       <button
@@ -720,9 +720,9 @@ function Step3({
   return (
     <div className="flex flex-col items-center gap-6 px-8 pb-10 text-center">
       <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Khi nào bạn rảnh?
+        Khi nào Trân yêu dấu rảnh?
       </h2>
-      <p className="text-gray-500 text-sm">Chọn ngày và giờ bạn muốn đi hẹn nhé 💘</p>
+      <p className="text-gray-500 text-sm">Chọn ngày và giờ Trân yêu dấu muốn đi hẹn nhé 💘</p>
       <div className="flex flex-col gap-4 w-full">
         <div className="text-left">
           <label className="block text-sm font-semibold text-gray-600 mb-1">📅 Ngày</label>
@@ -820,7 +820,7 @@ function Step5({
   return (
     <div className="flex flex-col items-center gap-6 px-8 pb-10 text-center">
       <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Sự rung cảm của bạn là gì?
+        Sự rung cảm của Trân yêu dấu là gì?
       </h2>
       <div className="grid grid-cols-3 gap-4 w-full">
         {ACTIVITY_OPTIONS.map((opt) => {
@@ -896,7 +896,7 @@ function Step6({
       <div>
         <p className="text-xl font-bold text-gray-800">I got you girl.</p>
         <p className="text-pink-500 font-semibold mt-1">
-          Hãy sẵn sàng, tôi sẽ đến đón bạn!
+          Hãy sẵn sàng, tôi sẽ đến đón Trân yêu dấu!
         </p>
       </div>
 

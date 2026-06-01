@@ -3,6 +3,22 @@ import { NextRequest, NextResponse } from "next/server";
 const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN!;
 const CHAT_ID = process.env.TELEGRAM_CHAT_ID!;
 
+const FOOD_EMOJI: Record<string, string> = {
+  "Bánh mì kẹp thịt": "🍔",
+  "Sushi": "🍣",
+  "Mì ống": "🍝",
+  "Bánh taco": "🌮",
+  "Pizza": "🍕",
+};
+
+const ACTIVITY_EMOJI: Record<string, string> = {
+  "Chơi gôn": "🏌️",
+  "Đi bộ": "🚶",
+  "Xem phim": "🎬",
+  "Công viên giải trí": "🎢",
+  "Bãi biển": "🏖️",
+};
+
 function formatDate(dateStr: string): string {
   if (!dateStr) return "—";
   const [year, month, day] = dateStr.split("-");
@@ -10,25 +26,11 @@ function formatDate(dateStr: string): string {
 }
 
 function foodEmoji(food: string): string {
-  const map: Record<string, string> = {
-    "Bánh mì kẹp thịt": "🍔",
-    "Sushi": "🍣",
-    "Mì ống": "🍝",
-    "Bánh taco": "🌮",
-    "Pizza": "🍕",
-  };
-  return map[food] ?? "🍽️";
+  return FOOD_EMOJI[food] ?? "🍽️";
 }
 
 function activityEmoji(activity: string): string {
-  const map: Record<string, string> = {
-    "Chơi gôn": "🏌️",
-    "Đi bộ": "🚶",
-    "Xem phim": "🎬",
-    "Công viên giải trí": "🎢",
-    "Bãi biển": "🏖️",
-  };
-  return map[activity] ?? "🎯";
+  return ACTIVITY_EMOJI[activity] ?? "🎯";
 }
 
 export async function POST(req: NextRequest) {
@@ -36,12 +38,26 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { date, time, food, activity } = body;
 
+    const foodLabel = food || "—";
+    const activityLabel = activity || "—";
+
     const message = [
-      "💌 Lời mời hẹn!",
-      `📅 Ngày: ${formatDate(date)}`,
-      `🕐 Giờ: ${time || "—"}`,
-      `${foodEmoji(food)} Ăn: ${food || "—"}`,
-      `${activityEmoji(activity)} Hoạt động: ${activity || "—"}`,
+      "━━━━━━━━━━━━━━━━━",
+      "  💌 LỜI MỜI HẸN HÒ 💌",
+      "━━━━━━━━━━━━━━━━━",
+      "",
+      "  ✨ Này Trân yêu dấu,",
+      "  Có ai đó muốn mời em đi chơi nè~",
+      "",
+      `  📅  Ngày: *${formatDate(date)}*`,
+      `  🕐  Giờ:   *${time || "—"}*`,
+      "",
+      `  🍽️  Ăn:    *${foodLabel}* ${foodEmoji(foodLabel)}`,
+      `  🎯  Chơi:  *${activityLabel}* ${activityEmoji(activityLabel)}`,
+      "",
+      "━━━━━━━━━━━━━━━━━",
+      "  Hãy sẵn sàng nhé! 💕",
+      "━━━━━━━━━━━━━━━━━",
     ].join("\n");
 
     const telegramRes = await fetch(
@@ -52,6 +68,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           chat_id: CHAT_ID,
           text: message,
+          parse_mode: "Markdown",
         }),
       }
     );
@@ -66,7 +83,7 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { ok: false, error: "Internal error" },
       { status: 500 }

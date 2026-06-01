@@ -96,7 +96,7 @@ src/
 ## 6. The 6 Steps
 
 ### Step 1: "Will You Date Me?"
-- **Content:** Meme image (Shrek) + text "Bạn sẽ hẹn hò với tôi chứ?"
+- **Content:** Meme image (Shrek) + text "Trân yêu dấu sẽ hẹn hò với tôi chứ?"
 - **Image:** URL from internet (Imgflip/Giphy), fallback to large Shrek emoji if load fails
 - **Buttons:**
   - "Có" → Step 2 (pink, large, bouncy hover)
@@ -108,13 +108,13 @@ src/
   - Smooth CSS transition on transform
 
 ### Step 2: "You Said Yes!"
-- **Content:** Happy meme image, text "Bạn thực sự đã nói có, tôi đã sẵn sàng. Để bạn nói không đã không kịp nữa rồi!"
+- **Content:** Happy meme image, text "Trân yêu dấu thực sự đã nói có, tôi đã sẵn sàng. Để Trân yêu dấu nói không đã không kịp nữa rồi!"
 - **Image:** URL from internet, fallback to emoji celebration
 - **Button:** "Tiếp theo" → Step 3
 - **Confetti effect** triggers on entering this step
 
 ### Step 3: "When Are You Free?"
-- **Content:** "Khi nào bạn rảnh?"
+- **Content:** "Khi nào Trân yêu dấu rảnh?"
 - **Inputs:**
   - Date picker (native `<input type="date">`, styled with Tailwind)
   - Time picker (native `<input type="time">`, styled)
@@ -129,7 +129,7 @@ src/
 - **State saved:** `food`
 
 ### Step 5: "What's Your Vibe?"
-- **Content:** "Sự rung cảm của bạn là gì?"
+- **Content:** "Sự rung cảm của Trân yêu dấu là gì?"
 - **Emoji grid (3 columns):** 🏌️ 🚶 🎬 🎢 🏖️
 - **Selection:** Single-select, selected item gets pink border + pink background
 - **Button:** "Tiếp theo" → Step 6
@@ -138,7 +138,7 @@ src/
 ### Step 6: Summary & Send
 - **Content:**
   - Cute cat image (URL from internet, fallback to 🐱 emoji)
-  - Text: "I got you girl. Hãy sẵn sàng, tôi sẽ đến đón bạn!"
+  - Text: "I got you girl. Hãy sẵn sàng, tôi sẽ đến đón Trân yêu dấu!"
   - Summary card showing: date, time, food, activity
 - **Button:** "Gửi lời mời 💌" → calls Telegram API
 - **On success:** Confetti effect + "Đã gửi! 💌" message
