@@ -79,11 +79,11 @@ function EmojiGrid({
   return (
     <div className="flex flex-col items-center gap-5 px-8 pb-10 text-center">
       <div className="grid grid-cols-3 gap-3 w-full">
-        {options.map((opt) => {
+        {options.map((opt, idx) => {
           const isSelected = selected === opt.label;
           return (
             <button
-              key={opt.emoji}
+              key={idx}
               onClick={() => {
                 setCustomMode(false);
                 onSelect(opt.label);
