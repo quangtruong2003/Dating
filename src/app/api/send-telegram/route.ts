@@ -25,11 +25,11 @@ function formatDate(dateStr: string): string {
   return `${day}/${month}/${year}`;
 }
 
-function foodEmoji(food: string): string {
+function foodEmojiVal(food: string): string {
   return FOOD_EMOJI[food] ?? "🍽️";
 }
 
-function activityEmoji(activity: string): string {
+function activityEmojiVal(activity: string): string {
   return ACTIVITY_EMOJI[activity] ?? "🎯";
 }
 
@@ -41,24 +41,20 @@ export async function POST(req: NextRequest) {
     const foodLabel = food || "—";
     const activityLabel = activity || "—";
 
-    const message = [
-      "━━━━━━━━━━━━━━━━━",
-      "  💌 LỜI MỜI HẸN HÒ 💌",
-      "━━━━━━━━━━━━━━━━━",
-      "",
-      "  ✨ Này Trân yêu dấu,",
-      "  Có ai đó muốn mời em đi chơi nè~",
-      "",
-      `  📅  Ngày: <b>${formatDate(date)}</b>`,
-      `  🕐  Giờ:   <b>${time || "—"}</b>`,
-      "",
-      `  🍽️  Ăn:    <b>${foodLabel}</b> ${foodEmoji(foodLabel)}`,
-      `  🎯  Chơi:  <b>${activityLabel}</b> ${activityEmoji(activityLabel)}`,
-      "",
-      "━━━━━━━━━━━━━━━━━",
-      "  Hãy sẵn sàng nhé! 💕",
-      "━━━━━━━━━━━━━━━━━",
-    ].join("\n");
+    // No parse_mode — send plain text so emoji renders correctly
+    const message =
+      `━━━━━━━━━━━━━━━━━\n` +
+      `  💌 LỜI MỜI HẸN HÒ 💌\n` +
+      `━━━━━━━━━━━━━━━━━\n\n` +
+      `  ✨ Này Trân yêu dấu,\n` +
+      `  Có ai đó muốn mời em đi chơi nè~\n\n` +
+      `  📅  Ngày: ${formatDate(date)}\n` +
+      `  🕐  Giờ:   ${time || "—"}\n\n` +
+      `  🍽️  Ăn:    ${foodLabel} ${foodEmojiVal(foodLabel)}\n` +
+      `  🎯  Chơi:  ${activityLabel} ${activityEmojiVal(activityLabel)}\n\n` +
+      `━━━━━━━━━━━━━━━━━\n` +
+      `  Hãy sẵn sàng nhé! 💕\n` +
+      `━━━━━━━━━━━━━━━━━`;
 
     const telegramRes = await fetch(
       `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
@@ -68,7 +64,6 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           chat_id: CHAT_ID,
           text: message,
-          parse_mode: "HTML",
         }),
       }
     );
