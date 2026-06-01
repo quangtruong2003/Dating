@@ -1,28 +1,42 @@
 "use client";
 
-import { useMemo } from "react";
+import { useState, useEffect } from "react";
 
 const HEART_SIZES = [16, 20, 24, 28, 32, 36, 40];
 
+type Heart = {
+  id: number;
+  left: number;
+  size: number;
+  opacity: number;
+  duration: number;
+  delay: number;
+  color: string;
+};
+
 export default function HeartBackground() {
-  const hearts = useMemo(() => {
-    return Array.from({ length: 18 }, (_, i) => ({
-      id: i,
-      left: Math.random() * 100,
-      size: HEART_SIZES[Math.floor(Math.random() * HEART_SIZES.length)],
-      opacity: 0.08 + Math.random() * 0.2,
-      duration: 8 + Math.random() * 12,
-      delay: Math.random() * -20,
-      color: ["#ec4899", "#f472b6", "#f9a8d4", "#fb7185"][
-        Math.floor(Math.random() * 4)
-      ],
-    }));
+  const [hearts, setHearts] = useState<Heart[]>([]);
+
+  useEffect(() => {
+    setHearts(
+      Array.from({ length: 18 }, (_, i) => ({
+        id: i,
+        left: Math.random() * 100,
+        size: HEART_SIZES[Math.floor(Math.random() * HEART_SIZES.length)],
+        opacity: 0.08 + Math.random() * 0.2,
+        duration: 8 + Math.random() * 12,
+        delay: Math.random() * -20,
+        color: ["#ec4899", "#f472b6", "#f9a8d4", "#fb7185"][
+          Math.floor(Math.random() * 4)
+        ],
+      }))
+    );
   }, []);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       <div className="absolute inset-0 bg-gradient-to-b from-pink-50 via-pink-100 to-white" />
-      {hearts.map((h) => (
+      {hearts.length > 0 && hearts.map((h) => (
         <div
           key={h.id}
           className="heart-float"
