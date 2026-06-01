@@ -49,11 +49,11 @@ export async function POST(req: NextRequest) {
       "  ✨ Này Trân yêu dấu,",
       "  Có ai đó muốn mời em đi chơi nè~",
       "",
-      `  📅  Ngày: *${formatDate(date)}*`,
-      `  🕐  Giờ:   *${time || "—"}*`,
+      `  📅  Ngày: <b>${formatDate(date)}</b>`,
+      `  🕐  Giờ:   <b>${time || "—"}</b>`,
       "",
-      `  🍽️  Ăn:    *${foodLabel}* ${foodEmoji(foodLabel)}`,
-      `  🎯  Chơi:  *${activityLabel}* ${activityEmoji(activityLabel)}`,
+      `  🍽️  Ăn:    <b>${foodLabel}</b> ${foodEmoji(foodLabel)}`,
+      `  🎯  Chơi:  <b>${activityLabel}</b> ${activityEmoji(activityLabel)}`,
       "",
       "━━━━━━━━━━━━━━━━━",
       "  Hãy sẵn sàng nhé! 💕",
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           chat_id: CHAT_ID,
           text: message,
-          parse_mode: "Markdown",
+          parse_mode: "HTML",
         }),
       }
     );
