@@ -70,26 +70,33 @@ function EmojiGrid({
   const [customMode, setCustomMode] = useState(false);
   const [customValue, setCustomValue] = useState("");
 
+  // Reset custom mode/value when options change (step transition)
+  useEffect(() => {
+    setCustomMode(false);
+    setCustomValue("");
+  }, [options]);
+
   const handleCustomSubmit = () => {
     if (customValue.trim()) {
       onSelect(customValue.trim());
+      setCustomValue("");
     }
   };
 
   return (
     <div className="flex flex-col items-center gap-5 px-8 pb-10 text-center">
       <div className="grid grid-cols-3 gap-3 w-full">
-        {options.map((opt, idx) => {
+        {options.map((opt) => {
           const isSelected = selected === opt.label;
           return (
             <button
-              key={idx}
+              key={opt.label}
               onClick={() => {
                 setCustomMode(false);
                 onSelect(opt.label);
               }}
               className={`flex flex-col items-center gap-1.5 p-4 rounded-2xl border-2 transition-all hover:scale-105 active:scale-95 ${
-                isSelected && !customMode
+                isSelected
                   ? "border-pink-500 bg-pink-50 shadow-lg shadow-pink-200 scale-105"
                   : "border-pink-100 bg-white hover:border-pink-300 hover:bg-pink-50"
               }`}
