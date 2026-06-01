@@ -22,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi">
-      <body className={`${quicksand.variable} font-quicksand antialiased`}>
+    <html lang="vi" suppressHydrationWarning>
+      <body className={`${quicksand.variable} font-quicksand antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>
