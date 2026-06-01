@@ -130,7 +130,7 @@ function EmojiGrid({
         >
           <div className="bg-pink-50 border border-pink-200 rounded-2xl p-4 space-y-3">
             <p className="text-sm font-medium text-gray-600">
-              Nhập ý kiến riêng của Trân yêu dấu:
+              Nhập ý kiến riêng của em nhé:
             </p>
             <input
               type="text"
@@ -215,7 +215,7 @@ function Step1({ onYes }: { onYes: () => void }) {
         <span className="text-[80px]">🧅</span>
       )}
       <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Trân yêu dấu sẽ hẹn hò với tôi chứ?
+        Trân yêu dấu sẽ đi chơi với tôi chứ?
       </h1>
       <div className="flex gap-4 mt-2">
         <button
@@ -263,7 +263,7 @@ function Step2({ onNext }: { onNext: () => void }) {
           Trân yêu dấu thực sự đã nói có
         </h2>
         <p className="text-gray-500 mt-2 text-sm">
-          Tôi đã sẵn sàng. Để Trân yêu dấu nói không đã không kịp nữa rồi!
+          Em đã sẵn sàng. Để anh nói không đã không kịp nữa rồi!
         </p>
       </div>
       <button
@@ -295,10 +295,10 @@ function Step3({
   return (
     <div className="flex flex-col items-center gap-6 px-8 pb-10 text-center">
       <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-        Khi nào Trân yêu dấu rảnh?
+        Khi nào anh rảnh nhỉ?
       </h2>
       <p className="text-gray-500 text-sm -mt-2">
-        Chọn ngày và giờ Trân yêu dấu muốn đi hẹn nhé 💘
+        Chọn ngày và giờ anh muốn đi hẹn nhé 💘
       </p>
       <div className="flex flex-col gap-4 w-full">
         <div className="text-left">
@@ -353,7 +353,7 @@ function Step4({
     <>
       <div className="px-8 pt-2 pb-0 text-center">
         <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-          Trân yêu dấu muốn ăn gì nào?
+          Anh muốn ăn gì nào?
         </h2>
       </div>
       <EmojiGrid
@@ -380,7 +380,7 @@ function Step5({
     <>
       <div className="px-8 pt-2 pb-0 text-center">
         <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">
-          Sự rung cảm của Trân yêu dấu là gì?
+          Sự rung cảm của anh là gì?
         </h2>
       </div>
       <EmojiGrid
@@ -439,9 +439,9 @@ function Step6({
       )}
 
       <div>
-        <p className="text-xl font-bold text-gray-800">I got you girl.</p>
+        <p className="text-xl font-bold text-gray-800">I got you babe.</p>
         <p className="text-pink-500 font-semibold mt-1">
-          Hãy sẵn sàng, tôi sẽ đến đón Trân yêu dấu!
+          Hãy sẵn sàng, em sẽ đến đón anh!
         </p>
       </div>
 

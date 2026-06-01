@@ -36,25 +36,21 @@ function activityEmojiVal(activity: string): string {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { date, time, food, activity } = body;
+    const { date, time, food, activity, name } = body;
 
     const foodLabel = food || "—";
     const activityLabel = activity || "—";
+    const senderName = name || "bạn gái iu";
 
-    // No parse_mode — send plain text so emoji renders correctly
     const message =
-      `━━━━━━━━━━━━━━━━━\n` +
-      `  💌 LỜI MỜI HẸN HÒ 💌\n` +
-      `━━━━━━━━━━━━━━━━━\n\n` +
-      `  ✨ Này Trân yêu dấu,\n` +
-      `  Có ai đó muốn mời em đi chơi nè~\n\n` +
-      `  📅  Ngày: ${formatDate(date)}\n` +
-      `  🕐  Giờ:   ${time || "—"}\n\n` +
-      `  🍽️  Ăn:    ${foodLabel} ${foodEmojiVal(foodLabel)}\n` +
-      `  🎯  Chơi:  ${activityLabel} ${activityEmojiVal(activityLabel)}\n\n` +
-      `━━━━━━━━━━━━━━━━━\n` +
-      `  Hãy sẵn sàng nhé! 💕\n` +
-      `━━━━━━━━━━━━━━━━━`;
+      `💌 LỜI MỜI HẸN HÒ 💌\n` +
+      `✨ Này anh yêu,\n` +
+      `${senderName} muốn mời anh đi chơi nè~\n\n` +
+      `📅 Ngày: ${formatDate(date)}\n` +
+      `🕐 Giờ:  ${time || "—"}\n\n` +
+      `🍽️ Ăn:   ${foodLabel} ${foodEmojiVal(foodLabel)}\n` +
+      `🎯 Chơi: ${activityLabel} ${activityEmojiVal(activityLabel)}\n\n` +
+      `Hãy sẵn sàng nhé! 💕`;
 
     const telegramRes = await fetch(
       `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
@@ -64,6 +60,7 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           chat_id: CHAT_ID,
           text: message,
+          parse_mode: "HTML",
         }),
       }
     );
